@@ -761,3 +761,22 @@ footer {
 [data-theme="light"] .watermark-overlay {
   color: rgba(71, 85, 105, 0.07); /* Lighter and faint in light-mode */
 }
+
+/* Dynamic Live Timestamp Watermark */
+.timestamp-watermark {
+  position: absolute;
+  bottom: 25px;
+  right: 40px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: rgba(148, 163, 184, 0.35); /* Slate gray subtle color */
+  pointer-events: none;
+  user-select: none;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.05em;
+  z-index: 998;
+}
+
+[data-theme="light"] .timestamp-watermark {
+  color: rgba(71, 85, 105, 0.3);
+}

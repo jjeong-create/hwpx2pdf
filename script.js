@@ -758,6 +758,8 @@ document.addEventListener('DOMContentLoaded', () => {
     printContainer.style.width = '800px';
     printContainer.style.padding = '50px 60px';
     printContainer.style.fontFamily = 'Inter, "Noto Sans KR", sans-serif';
+    printContainer.style.position = 'relative';
+    printContainer.style.minHeight = '1000px';
     printContainer.innerHTML = activeParsedHtml;
     
     // Inject watermark overlay if specified
@@ -768,6 +770,12 @@ document.addEventListener('DOMContentLoaded', () => {
       wOverlay.textContent = watermarkText;
       printContainer.appendChild(wOverlay);
     }
+    
+    // Inject static frozen timestamp footer in printed document
+    const printTimestamp = document.createElement('div');
+    printTimestamp.className = 'timestamp-watermark';
+    printTimestamp.textContent = formatDateTime(new Date());
+    printContainer.appendChild(printTimestamp);
     
     // Inject print styling variables
     document.body.appendChild(printContainer);
@@ -862,6 +870,8 @@ document.addEventListener('DOMContentLoaded', () => {
     printContainer.style.width = '800px';
     printContainer.style.padding = '50px 60px';
     printContainer.style.fontFamily = 'Inter, "Noto Sans KR", sans-serif';
+    printContainer.style.position = 'relative';
+    printContainer.style.minHeight = '1000px';
     printContainer.innerHTML = activeParsedHtml;
     
     // Inject watermark overlay if specified
@@ -872,6 +882,12 @@ document.addEventListener('DOMContentLoaded', () => {
       wOverlay.textContent = watermarkText;
       printContainer.appendChild(wOverlay);
     }
+    
+    // Inject static frozen timestamp footer in printed document
+    const printTimestamp = document.createElement('div');
+    printTimestamp.className = 'timestamp-watermark';
+    printTimestamp.textContent = formatDateTime(new Date());
+    printContainer.appendChild(printTimestamp);
     
     document.body.appendChild(printContainer);
 
@@ -948,4 +964,29 @@ document.addEventListener('DOMContentLoaded', () => {
     overlay.textContent = text.trim();
     documentPage.appendChild(overlay);
   }
+
+  // 13. Dynamic Live Ticking Clock Footer Timestamp
+  function formatDateTime(date) {
+    const pad = (n) => n.toString().padStart(2, '0');
+    const yyyy = date.getFullYear();
+    const mm = pad(date.getMonth() + 1);
+    const dd = pad(date.getDate());
+    const hh = pad(date.getHours());
+    const min = pad(date.getMinutes());
+    const sec = pad(date.getSeconds());
+    return `${yyyy}-${mm}-${dd} ${hh}:${min}:${sec}`;
+  }
+
+  const pageTimestamp = document.getElementById('pageTimestamp');
+  if (pageTimestamp) {
+    pageTimestamp.textContent = formatDateTime(new Date());
+  }
+
+  // Update ticking clock footer timestamp every second
+  setInterval(() => {
+    const now = new Date();
+    const formatted = formatDateTime(now);
+    const tsElements = document.querySelectorAll('.timestamp-watermark');
+    tsElements.forEach(el => el.textContent = formatted);
+  }, 1000);
 });
