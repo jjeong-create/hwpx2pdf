@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HWPX to PDF Converter - 100% Local & Safe</title>
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="별도의 서버 업로드 없이 사용자 컴퓨터에서 안전하게 100% 오프라인으로 HWPX 한글 파일을 PDF로 변환하고 다운로드하세요. 개인 정보 노출 위험 없는 안전한 로컬 변환기.">
+  <meta name="keywords" content="hwpx pdf 변환, hwpx 변환기, 한글 pdf 변환, local hwpx to pdf, client-side converter">
+  <meta name="author" content="Antigravity Studio">
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Background Decorative Glowing Orbs -->
+  <div class="glow-orb orb-primary"></div>
+  <div class="glow-orb orb-secondary"></div>
+
+  <div class="app-container">
+    <!-- Header -->
+    <header>
+      <div class="logo-group">
+        <div class="logo-icon">
+          <i data-lucide="file-up"></i>
+        </div>
+        <div class="logo-text">
+          <h1>HWPX to PDF</h1>
+          <p>Secure Client-Side Document Converter</p>
+        </div>
+      </div>
+      
+      <div class="header-actions">
+        <button class="theme-toggle" id="themeToggle" title="테마 변경 (다크/라이트)">
+          <span id="themeIconSun"><i data-lucide="sun"></i></span>
+          <span id="themeIconMoon" class="hidden-pdf-source"><i data-lucide="moon"></i></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Workspace Dashboard Grid -->
+    <main class="dashboard-grid">
+      
+      <!-- LEFT COLUMN: Control Panel & Status -->
+      <section class="panel-left">
+        
+        <!-- File Upload Card -->
+        <div class="glass-card" id="uploadCard">
+          <h2 class="card-title">
+            <i data-lucide="upload-cloud" style="color: var(--primary);"></i>
+            파일 업로드
+          </h2>
+          
+          <div class="upload-zone" id="uploadZone">
+            <div class="wave-ring"></div>
+            <div class="upload-icon-wrapper">
+              <i data-lucide="file-text" style="width: 2.2rem; height: 2.2rem;"></i>
+            </div>
+            <p class="upload-prompt">HWPX 또는 DOCX 파일을 여기에 드래그하거나 클릭</p>
+            <p class="upload-subtitle">HWPX 및 DOCX(워드) 확장자를 지원하며, 크기 제한 없음</p>
+            <input type="file" id="fileInput" class="file-input" accept=".hwpx,.docx">
+          </div>
+          
+          <!-- 100% Client-Side Privacy Reassurance -->
+          <div class="privacy-badge">
+            <i data-lucide="shield-check"></i>
+            <span>100% 로컬 연산 - 파일이 외부 서버로 전송되지 않습니다.</span>
+          </div>
+        </div>
+
+        <!-- File Metadata & Actions Card (Hidden initially, shown after file drop) -->
+        <div class="glass-card hidden-pdf-source" id="metadataCard">
+          <h2 class="card-title">
+            <i data-lucide="file-info" style="color: var(--accent-teal);"></i>
+            문서 정보 및 실행
+          </h2>
+          
+          <div class="file-info-container">
+            <div class="info-row">
+              <span class="info-label">파일명</span>
+              <span class="info-value" id="metaFileName">-</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">파일 크기</span>
+              <span class="info-value" id="metaFileSize">-</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">문서 언어</span>
+              <span class="info-value">한국어 (OWPML)</span>
+            </div>
+
+            <!-- Resolution Quality/Size Selector -->
+            <div class="info-row" style="margin-top: 0.85rem; flex-direction: column; align-items: flex-start; gap: 0.4rem; width: 100%;">
+              <span class="info-label" style="display: flex; align-items: center; gap: 0.35rem; font-size: 0.82rem; font-weight: 600;">
+                <i data-lucide="sliders" style="width: 0.85rem; height: 0.85rem;"></i>
+                출력 품질 및 용량 설정
+              </span>
+              <select id="resolutionSelect" class="btn" style="background: rgba(0,0,0,0.15); border: 1px solid var(--panel-border); color: var(--text-primary); padding: 0.65rem 0.85rem; font-size: 0.82rem; border-radius: 10px; width: 100%; text-align: left; cursor: pointer; outline: none; margin-bottom: 0.5rem; font-family: inherit;">
+                <option value="high">고해상도 (인쇄용 - 높은 용량)</option>
+                <option value="medium" selected>표준 해상도 (웹/일반 - 균형 용량)</option>
+                <option value="low">저용량 최적화 (이메일/모바일 - 초저용량)</option>
+              </select>
+            </div>
+
+            <!-- Real-time Security Watermark Setting -->
+            <div class="info-row" style="margin-top: 0.4rem; flex-direction: column; align-items: flex-start; gap: 0.4rem; width: 100%;">
+              <span class="info-label" style="display: flex; align-items: center; gap: 0.35rem; font-size: 0.82rem; font-weight: 600;">
+                <i data-lucide="stamp" style="width: 0.85rem; height: 0.85rem;"></i>
+                보안 워터마크 문구 (선택)
+              </span>
+              <input type="text" id="watermarkInput" placeholder="예: CONFIDENTIAL" class="btn" style="background: rgba(0,0,0,0.15); border: 1px solid var(--panel-border); color: var(--text-primary); padding: 0.65rem 0.85rem; font-size: 0.82rem; border-radius: 10px; width: 100%; text-align: left; outline: none; margin-bottom: 0.5rem; font-family: inherit;">
+            </div>
+
+            <!-- PDF Security Encryption Password Setting -->
+            <div class="info-row" style="margin-top: 0.4rem; flex-direction: column; align-items: flex-start; gap: 0.4rem; width: 100%;">
+              <span class="info-label" style="display: flex; align-items: center; gap: 0.35rem; font-size: 0.82rem; font-weight: 600;">
+                <i data-lucide="lock" style="width: 0.85rem; height: 0.85rem;"></i>
+                PDF 보안 비밀번호 (선택)
+              </span>
+              <input type="password" id="passwordInput" placeholder="비밀번호 설정 시 파일 암호화 잠금" class="btn" style="background: rgba(0,0,0,0.15); border: 1px solid var(--panel-border); color: var(--text-primary); padding: 0.65rem 0.85rem; font-size: 0.82rem; border-radius: 10px; width: 100%; text-align: left; outline: none; margin-bottom: 0.85rem; font-family: inherit;">
+            </div>
+
+            <!-- Horizontal Grid Action Buttons -->
+            <div style="display: flex; gap: 0.65rem; width: 100%; margin-bottom: 0.65rem;">
+              <button class="btn" id="btnCopyText" disabled style="background: rgba(168, 85, 247, 0.12); border: 1px solid rgba(168, 85, 247, 0.25); color: var(--secondary); flex: 1; padding: 0.75rem 0.5rem; font-size: 0.85rem; border-radius: 10px;">
+                <i data-lucide="copy" style="width: 0.95rem; height: 0.95rem;"></i>
+                본문 복사
+              </button>
+              <button class="btn" id="btnPrint" disabled style="background: rgba(6, 182, 212, 0.12); border: 1px solid rgba(6, 182, 212, 0.25); color: var(--accent-teal); flex: 1; padding: 0.75rem 0.5rem; font-size: 0.85rem; border-radius: 10px;">
+                <i data-lucide="printer" style="width: 0.95rem; height: 0.95rem;"></i>
+                직접 인쇄
+              </button>
+            </div>
+            
+            <button class="btn btn-primary" id="btnDownload" disabled>
+              <i data-lucide="download"></i>
+              PDF로 변환 & 다운로드
+            </button>
+          </div>
+        </div>
+
+        <!-- Logs / Progress Console Card -->
+        <div class="glass-card">
+          <h2 class="card-title">
+            <i data-lucide="terminal" style="color: var(--secondary);"></i>
+            실행 로그
+          </h2>
+          
+          <div class="progress-panel">
+            <div class="progress-header">
+              <span id="progressStatus">대기 중...</span>
+              <span id="progressPercent">0%</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-bar" id="progressBar"></div>
+            </div>
+          </div>
+          
+          <div class="logger-console" id="logConsole">
+            <!-- Dynamic logs appear here -->
+            <div class="log-entry">
+              <span class="log-time">[15:40:20]</span>
+              <span class="log-text info">시스템이 준비되었습니다. HWPX 파일을 업로드해 주세요.</span>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- RIGHT COLUMN: Interactive Document Viewer -->
+      <section class="panel-right">
+        
+        <!-- Viewer Header -->
+        <div class="viewer-header">
+          <div class="tabs-group">
+            <button class="tab-btn active" id="tabPreview">
+              <i data-lucide="eye"></i>
+              실시간 미리보기
+            </button>
+            <button class="tab-btn" id="tabSource">
+              <i data-lucide="code-2"></i>
+              소스 보기
+            </button>
+          </div>
+          
+          <div class="viewer-controls">
+            <span class="scale-label">미리보기 축척</span>
+            <input type="range" class="scale-slider" id="scaleSlider" min="50" max="150" value="100">
+            <span class="scale-value" id="scaleValue">100%</span>
+          </div>
+        </div>
+
+        <!-- Canvas Container -->
+        <div class="preview-canvas" id="previewCanvas">
+          
+          <!-- Empty View / Placeholder -->
+          <div class="empty-viewer" id="emptyViewer">
+            <i data-lucide="file-warning" class="empty-icon"></i>
+            <h3>미리보기가 비어 있습니다</h3>
+            <p>HWPX 파일을 드래그하여 업로드하면, 이곳에서 고해상도 한글 문서 레이아웃 미리보기가 즉시 생성됩니다.</p>
+          </div>
+
+          <!-- Document Render Area (Page Simulator) -->
+          <div class="document-page hidden-pdf-source" id="documentPage">
+            <div class="hwpx-rendered-content" id="renderOutput">
+              <!-- Rendered HWPX content -->
+            </div>
+          </div>
+
+          <!-- HTML Source Preview Container -->
+          <div class="document-page hidden-pdf-source" id="sourcePage" style="background: #0f172a; color: #38bdf8; font-family: 'JetBrains Mono', monospace; padding: 2.5rem; border: 1px solid rgba(255,255,255,0.05);">
+            <pre id="sourceOutput" style="white-space: pre-wrap; font-size: 0.85rem; line-height: 1.5; color: #38bdf8; word-break: break-all;"></pre>
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div>
+        <p>&copy; 2026 Antigravity. Built with Vanilla Web Standard.</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" target="_blank" rel="noopener">JSZip</a>
+        <a href="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" target="_blank" rel="noopener">html2pdf.js</a>
+        <a href="https://lucide.dev" target="_blank" rel="noopener">Lucide Icons</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- CDN Script Loading -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- App JS Logic -->
+  <script src="script.js"></script>
+</body>
+</html>
